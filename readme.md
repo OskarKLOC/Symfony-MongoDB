@@ -33,6 +33,16 @@ In the controller file *ProductController.php*, we define a specific route to in
 The code for this step is located in the "*Step-1-First-Document*" branch. Don't forget to run the `composer update` command after retrieving it.
 
 
+## Step 2: First Repository
+
+We keep the previously created documents unchanged, as well as the template, and create a dedicated repository *ProductRepository.php* for interacting with the database. At this stage, three methods are provided: one for saving a new document to the collection, one for finding a document by its ID, and one for retrieving all documents. Please refer to the documentation for creating other useful methods.
+
+We define a new route in the controller to be able to specifically invoke it
+
+The code for this step is located in the "*Step-2-First-Repository*" branch. Don't forget to run the `composer update` command after retrieving it.
+
+
+
 
 # Exemple pas à pas de projet Symfony-MongoDB (version française)
 
@@ -68,3 +78,12 @@ Nous créons ensuite un Document *Product.php* qui va contenir la définition de
 Au niveau du contrôleur *ProductController.php*, nous définissons une route spécifique pour instancier les classes nécessaires et générer aléatoirement des valeurs. Grâce aux méthodes de la classe DocumentManager de Doctrine MongoDB, on réalise un enregistrement en base de données et une récupération de l'ensemble des documents de la collection avant de les afficher.
 
 Le code de cette étape se trouve dans la branche "*Step-1-First-Document*". N'oubliez pas de faire lancer la commande `composer update` après l'avoir récupéré.
+
+
+## Etape 2 : Premier Repository
+
+On conserve les documents créés précédemment sans les modifier, ainsi que le template, et on crée un repository *ProductRepository.php* dédié aux échanges avec la base de données. Trois méthodes sont proposées à ce stade, pour enregistrer un nouveau document dans la collection, pour en trouver un par id ou pour tous les récupérer. Il faudra se reporter à la documentation pour créer toutes les autres méthodes utiles.
+
+Nous définissons une nouvelle route dans le contrôleur pour pouvoir y faire appel spécifiquement.
+
+Le code de cette étape se trouve dans la branche "*Step-2-First-Repository*". N'oubliez pas de faire lancer la commande `composer update` après l'avoir récupéré.
