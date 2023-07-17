@@ -116,3 +116,10 @@ Nous définissons ensuite une nouvelle route dans le contrôleur *ProductControl
 Enfin, nous mettons en place un template dédié qui exploite les champs de formulaire précédemment configuré dans le fichier *ProductType.php*. La liste de tous les produits en base de données est affichée. Et en cas de succès d'ajout d'un nouveau produit, un message spécifique nous en informe avant le formulaire.
 
 Le code de cette étape se trouve dans la branche "*Step-3-First-Form*". N'oubliez pas de faire la commande `composer update` après l'avoir récupéré.
+
+
+## Etape 4 : Sécurité
+
+Nous allons maintenant mettre en place un système d'inscription et de connexion à notre application pour sécuriser l'accès à la page de création de nouveaux produits. Nous allons nous baser sur le security bundle en commençant par l'installer avec la commande `composer require symfony/security-bundle`.
+
+Le code de cette étape se trouve dans la branche "*Step-4-Security*". N'oubliez pas de faire la commande `composer update` après l'avoir récupéré.
