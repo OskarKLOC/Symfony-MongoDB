@@ -56,6 +56,60 @@ Finally, we set up a dedicated template that uses the form fields previously con
 The code for this step can be found in the "*Step-3-First-Form*" branch. Don't forget to run the `composer update` command after retrieving it.
 
 
+## Step 4: Security
+
+We will now implement a registration and login system for our application to secure access to the page for creating new products. We will use the security bundle, starting by installing it with the command composer require `symfony/security-bundle`.
+
+Next, we follow the main steps outlined in the documentation: https://symfony.com/doc/current/security.html. You may find it helpful to refer to the general documentation for MongoDBBundle as well: https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/tutorials/getting-started.html#getting-started.
+
+**Important Note**: There is no command to set up a fully functional system from scratch. It will be necessary to get your hands dirty and make several adjustments. However, it's not overly complicated for a simple version, following the instructions provided.
+
+First, let's proceed with the creation of the entity, repository, authentication system, and registration system using the standard commands you already know:
+1. `symfony console make:user`
+2. `symfony console make:auth`
+3. `symfony console make:registration-form`
+
+Then, you need to create a document *User.php* based on the entity that was just generated, and replace the references and classes used in the following files to switch from the entity to the document:
+- UserRepository.php
+- RegistrationFormType.php
+- RegistrationController.php
+- AuthAuthenticator.php
+
+Finally, adjust the configurations in the *security.yaml* file:
+- Replace the entity reference with the document reference
+```yaml
+security:
+    providers:
+        my_mongo_provider:
+            mongodb: {class: App\Document\User, property: email}
+```
+- Replace the provider reference in the firewall
+```yaml
+security:
+    firewalls:
+        main:
+            provider: my_mongo_provider
+```
+- Specify the target upon logout
+```yaml
+security:
+    firewalls:
+        main:
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: app_login
+```
+- Set up authentication control for the visited pages
+```yaml
+security:
+    access_control:
+        - { path: ^/product, roles: ROLE_USER }
+```
+
+The code for this step can be found in the "*Step-4-Security*" branch. Don't forget to run composer update after checking it out.
+
+
 
 
 
@@ -121,5 +175,53 @@ Le code de cette étape se trouve dans la branche "*Step-3-First-Form*". N'oubli
 ## Etape 4 : Sécurité
 
 Nous allons maintenant mettre en place un système d'inscription et de connexion à notre application pour sécuriser l'accès à la page de création de nouveaux produits. Nous allons nous baser sur le security bundle en commençant par l'installer avec la commande `composer require symfony/security-bundle`.
+
+Il suffit ensuite de suivre les grandes étapes proposées par la documentation : https://symfony.com/doc/current/security.html
+Il pourra être utile de compléter au besoin avec la documentation générale de MongoDBBundle : https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/tutorials/getting-started.html#getting-started
+
+**Note Importante** : Il n'existe pas de commande pour mettre en place un système tout fait en partant de zéro. Il sera donc nécessaire de mettre la main à la pâte pour procéder à plusieurs ajustements. Mais ce n'est pas compliqué non plus pour une version simple, en suivant les instructions suivantes.
+
+Tout d'abord, nous procédons à la création de l'entité, du repository, du système d'authentification et du système d'inscription en utilisant les commandes standards déjà connues :
+1. `symfony console make:user`
+2. `symfony console make:auth`
+3. `symfony console make:registration-form`
+
+Ensuite, il faut créer un document *User.php* sur la base de l'entité qui vient d'être générée, et il faut remplacer les références et classes utilisées dans les fichiers suivants, pour passer de l'entité au document :
+- UserRepository.php
+- RegistrationFormType.php
+- RegistrationController.php
+- AuthAuthenticator.php
+
+Enfin, il suffit d'ajuster les configurations dans le fichier *security.yaml* :
+- Remplacer la référence à l'entité par la référence au documment
+```yaml
+security:
+    providers:
+        my_mongo_provider:
+            mongodb: {class: App\Document\User, property: email}
+```
+- Remplacer le provider de référence dans le firewall
+```yaml
+security:
+    firewalls:
+        main:
+            provider: my_mongo_provider
+```
+- Préciser la cible en cas de déconnexion
+```yaml
+security:
+    firewalls:
+        main:
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: app_login
+```
+- Mettre en place le contrôle de l'authentification suivant les pages visitées
+```yaml
+security:
+    access_control:
+        - { path: ^/product, roles: ROLE_USER }
+```
 
 Le code de cette étape se trouve dans la branche "*Step-4-Security*". N'oubliez pas de faire la commande `composer update` après l'avoir récupéré.
