@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -10,6 +11,7 @@ use App\Document\Product;
 use App\Document\ProductOptions;
 use App\Document\ProductReview;
 use App\Repository\ProductRepository;
+use App\Form\ProductType;
 
 class ProductController extends AbstractController
 {
@@ -73,7 +75,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    // A route to test our document without a repository
+    // A route to test our document with a repository
     #[Route('/product_add_with_repository', name: 'app_product_add_with_repository')]
     public function addWithRepository(ProductRepository $productRepository): Response
     {
@@ -120,6 +122,35 @@ class ProductController extends AbstractController
             'step_title' => 'Etape 2 - Document avec Repository',
             'step_description' => 'Ajout et lecture de documents dans une collection en base de données pour contrôler la mise en place correcte de nos Documents dans Symfony avec utilisation d\'un Repository dédié',
             'products' => $products,
+        ]);
+    }
+
+    // A route to test our document with a form
+    #[Route('/product_add_with_form', name: 'app_product_add_with_form')]
+    public function addWithForm(Request $request, ProductRepository $productRepository): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        // Si réception du formulaire, enregistrement du document dans la collection
+        $success = false;
+        if ($form->isSubmitted() && $form->isValid()) {
+            // We save our new document in the database
+            $productRepository->addProduct($product);
+            $success = true;
+        }
+
+        // We retrieve all the documents from the collection to later display them
+        $products = $productRepository->findAllProducts();
+        
+        // We display the results
+        return $this->render('product/add_with_form.html.twig', [
+            'step_title' => 'Etape 3 - Document avec Repository et Formulaire',
+            'step_description' => 'Ajout et lecture de documents dans une collection en base de données pour contrôler la mise en place correcte de nos Documents dans Symfony avec utilisation d\'un Repository et d\'un formulaire dédiés',
+            'form' => $form->createView(),
+            'products' => $products,
+            'success' => $success,
         ]);
     }
 }

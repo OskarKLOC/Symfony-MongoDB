@@ -42,6 +42,21 @@ We define a new route in the controller to be able to specifically invoke it
 The code for this step is located in the "*Step-2-First-Repository*" branch. Don't forget to run the `composer update` command after retrieving it.
 
 
+## Step 3: First Form
+
+We are using the documents and repositories created previously without modifying them. Now, let's see an example of how to set up a form system using Symfony's dedicated form library. We start by installing it with the command `composer require symfony/form`.
+
+In a *Form* folder, we create a file named *ProductType.php* which will contain the classes that will serve as the basis for generating our form. These classes provide the expected parameters for each input field.
+Note: We won't explore all the formatting options for this form, but rather focus on how to interact with our documents to store data in MongoDB.
+
+Next, we define a new route in the *ProductController.php* controller to specifically handle the form. After preparing the form, we check if there is an incoming request to populate it, and if so, we save the data in the database. In all cases, we provide the form structure to our template along with other informations.
+
+Finally, we set up a dedicated template that uses the form fields previously configured in the *ProductType.php* file. The list of all products in the database is displayed, and in case of successfully adding a new product, a specific message informs us before displaying the form.
+
+The code for this step can be found in the "*Step-3-First-Form*" branch. Don't forget to run the `composer update` command after retrieving it.
+
+
+
 
 
 # Exemple pas à pas de projet Symfony-MongoDB (version française)
@@ -87,3 +102,17 @@ On conserve les documents créés précédemment sans les modifier, ainsi que le
 Nous définissons une nouvelle route dans le contrôleur pour pouvoir y faire appel spécifiquement.
 
 Le code de cette étape se trouve dans la branche "*Step-2-First-Repository*". N'oubliez pas de faire lancer la commande `composer update` après l'avoir récupéré.
+
+
+## Etape 3 : Premier formulaire
+
+On utilise les documents et repository créés précédemment sans les modifier. Nous allons maintenant voir en exemple comment mettre en place un système de formulaire en utilisant la librairie dédiée de Symfony. On commence par l'installer avec la commande `composer require symfony/form`.
+
+Dans un dossier *Form*, nous créons un fichier *ProductType.php* qui va comporter les classes qui vont servir de base à la génération notre formulaire. Ces classes fournissent les paramètres attendus pour chaque champ de saisie.
+Note : Il ne s'agit pas ici d'explorer toutes les options de formatage de ce formulaire, mais de voir comment le faire interagir avec nos documents pour un enregistrement des données dans MongoDB.
+
+Nous définissons ensuite une nouvelle route dans le contrôleur *ProductController.php* pour pouvoir y faire appel spécifiquement. Après préparation du formulaire, on essaie de voir s'il y a une requête entrante pour le remplir, et le cas échéant on inscrit les données en bases de données. Dans tous les cas, on fournit la structure du formulaire à notre template en même temps que d'autres informations.
+
+Enfin, nous mettons en place un template dédié qui exploite les champs de formulaire précédemment configuré dans le fichier *ProductType.php*. La liste de tous les produits en base de données est affichée. Et en cas de succès d'ajout d'un nouveau produit, un message spécifique nous en informe avant le formulaire.
+
+Le code de cette étape se trouve dans la branche "*Step-3-First-Form*". N'oubliez pas de faire la commande `composer update` après l'avoir récupéré.
