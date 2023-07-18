@@ -107,6 +107,8 @@ security:
         - { path: ^/product, roles: ROLE_USER }
 ```
 
+**Note**: If it has been configured, it is necessary to add a specific line in the form present in our Twig file add_with_form. This line corresponds to a hidden field that will transmit a token to our back-end to authorize the processing of the form data.
+
 The code for this step can be found in the "*Step-4-Security*" branch. Don't forget to run composer update after checking it out.
 
 
@@ -223,5 +225,7 @@ security:
     access_control:
         - { path: ^/product, roles: ROLE_USER }
 ```
+
+**Note** : Si cela a été configuré, il est nécessaire d'ajouter une ligne spécifique dans le formulaire présent dans notre fichier twig *add_with_form*. Cette ligne correspond à un champ caché qui transmettra un jeton à notre back-end afin d'autoriser la prise en compte des données du formulaire.
 
 Le code de cette étape se trouve dans la branche "*Step-4-Security*". N'oubliez pas de faire la commande `composer update` après l'avoir récupéré.

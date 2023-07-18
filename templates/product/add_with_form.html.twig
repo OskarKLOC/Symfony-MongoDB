@@ -28,6 +28,7 @@
 <div>
     <h2>Formulaire d'ajout d'un nouveau produit</h2>
     {{ form_start(form) }}
+    {{ form_row(form._token) }}
     <div>
         {{ form_label(form.name) }}
         {{ form_widget(form.name) }}
